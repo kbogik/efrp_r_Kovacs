@@ -2,7 +2,8 @@
 library("readxl")
 wti<-readxl::read_excel("/Users/kbogi/Desktop/EFRP/Lesson4/WTI2.xlsx")
 
+#sima korrelacio, ez nem is kell
 correl=cor(wti[sapply( wti, is.numeric)])
 
 #cross correlation function
-ccf(wti$CL1,wti$CL8,main="Cross correlation CL1 and CL")
+ccf(wti$CL1,wti$CL8,main="Cross correlation CL1 and CL8")
