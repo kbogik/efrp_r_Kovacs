@@ -8,10 +8,11 @@ correl=cor(wti[sapply( wti, is.numeric)])
 #cross correlation function
 ccf(wti$CL1,wti$CL8,main="Cross correlation CL1 and CL8")
 
-# window_length=200
-#kellene 2 ciklus, az egyikben az fut, hogy melyik 2 CL között nézi, a másikban meg az, hogy hol az ablak
-
 #cl1<-wti[["CL1"]]
+
+
+# window_length=200, erre kellene hibauzenet
+#kellene 2 ciklus, az egyikben az fut, hogy melyik 2 CL között nézi, a másikban meg az, hogy hol az ablak
 
 cl_length<-nrow(wti)
 #igy meg nem fut le:
@@ -20,9 +21,12 @@ while(j <= cl_length){
   print(ccf(wti$CL1[j-(200):j], wti$CL2[j-(200):j]))
   j <- j + 1
 }
-#igy lefut, csak ugye meg nem jo, btw ez meg csak vegtelen ido alatt printeli:D
-j=201
-while(j <= cl_length){
-  print(ccf(wti$CL1[j-(190):j], wti$CL2[j-(190):j]))
-  j <- j + 1
-}
+
+#igy lefut, csak ugye meg nem jo, nem tudom az elejerol inditani aaz ablakot, 6 listaelembol all a ccf eredmenye (erre 201-tol indulo listat ad)
+cl12_cf<-list(0,0,0,0,0,0)
+ cl_length<-nrow(wti)
+ j=201
+ while(j <= cl_length){
+   cl12_cf[j]<-(ccf(wti$CL1[j-(180):j], wti$CL2[j-(180):j]))
+   j <- j + 1
+ }
