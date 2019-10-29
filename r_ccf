@@ -7,3 +7,22 @@ correl=cor(wti[sapply( wti, is.numeric)])
 
 #cross correlation function
 ccf(wti$CL1,wti$CL8,main="Cross correlation CL1 and CL8")
+
+# window_length=200
+#kellene 2 ciklus, az egyikben az fut, hogy melyik 2 CL között nézi, a másikban meg az, hogy hol az ablak
+
+#cl1<-wti[["CL1"]]
+
+cl_length<-nrow(wti)
+#igy meg nem fut le:
+j=201
+while(j <= cl_length){
+  print(ccf(wti$CL1[j-(200):j], wti$CL2[j-(200):j]))
+  j <- j + 1
+}
+#igy lefut, csak ugye meg nem jo, btw ez meg csak vegtelen ido alatt printeli:D
+j=201
+while(j <= cl_length){
+  print(ccf(wti$CL1[j-(190):j], wti$CL2[j-(190):j]))
+  j <- j + 1
+}
