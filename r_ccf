@@ -1,4 +1,12 @@
 ##
+
+#értelmezésem szerint a feladat: 
+#miután valaki szépen betárolta az adatokat
+#kellene választani egy ablakhosszt, és akkor minden párosra (24*25/2), 
+#kiszedjük a megfelelő adatokat, 
+#és azokra az ablakot mozgatva végigszámolgatjuk a keresztkorrelációt, 
+#és annak az eredményeit egy újabb helyen tároljuk, majd ezeket plotoljuk a végén
+
 library("readxl")
 wti<-readxl::read_excel("/Users/kbogi/Desktop/EFRP/Lesson4/WTI2.xlsx")
 
@@ -15,18 +23,26 @@ ccf(wti$CL1,wti$CL8,main="Cross correlation CL1 and CL8")
 #kellene 2 ciklus, az egyikben az fut, hogy melyik 2 CL között nézi, a másikban meg az, hogy hol az ablak
 
 cl_length<-nrow(wti)
-#igy meg nem fut le:
+cl_number<-ncol(wti)
+
+#proba,igy nem fut le:
 j=201
 while(j <= cl_length){
-  print(ccf(wti$CL1[j-(200):j], wti$CL2[j-(200):j]))
+  print(ccf(wti$CL1[j-(199):j], wti$CL2[j-(199):j]))
   j <- j + 1
 }
 
-#igy lefut, csak ugye meg nem jo, nem tudom az elejerol inditani aaz ablakot, 6 listaelembol all a ccf eredmenye (erre 201-tol indulo listat ad)
-cl12_cf<-list(0,0,0,0,0,0)
- cl_length<-nrow(wti)
- j=201
- while(j <= cl_length){
-   cl12_cf[j]<-(ccf(wti$CL1[j-(180):j], wti$CL2[j-(180):j]))
-   j <- j + 1
- }
+#nem tudom az elejerol inditani az ablakot, 6 listaelembol áll a ccf eredmenye (erre 201-tol indulo listat ad, vagyis azelso 201 elem 0)
+ij_ccf<-list(0,0,0,0,0,0)
+cl_length<-nrow(wti)
+cl_number<-ncol(wti)
+
+i=2
+j=200
+while (i<=cl_number){
+  while(j <= cl_length){
+  ij_ccf[j]<-(ccf(wti[j-(180):j,i], wti[j-(180):j,i]))
+  j <- j + 1
+  i <- i + 1
+  }
+}
