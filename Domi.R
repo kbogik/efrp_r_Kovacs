@@ -50,7 +50,7 @@ result_lag[[j]]<-cl_ccf[[j]]$lag
 while (j<=(cl_length)){
   while(i <= cl_number){
     while(k <= cl_number){
-      test_ccf[[j]]<-(ccf(wti[lag:(j-lag),i], lag:(j-lag),k],cc_lag))
+      test_ccf[[j]]<-(ccf(wti[cc_lag:(j-cc_lag),i], cc_lag:(j-cc_lag),k],cc_lag))
       k<-i+1
     }
     j <- j + 1
