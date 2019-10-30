@@ -30,6 +30,7 @@ window_length=2000
 i=2
 j=window_length
 k=3
+cc_lag=2
 
 #ha még csak erre futtatjátok, akkor működik
 cl_ccf<-list()
@@ -41,18 +42,20 @@ while(j <= cl_length){
 
 #adott ablakhoz tartozó acf-ek minden lag-re
 #rakhatunk még ciklust, vagy mátrixba is tölthetjük, de kiszedhető korrekten
-cc_result[[j]]<-cl_ccf[[j]]$acf
-cc_lag[[j]]<-cl_ccf[[j]]$lag
+result_acf[[j]]<-cl_ccf[[j]]$acf
+result_lag[[j]]<-cl_ccf[[j]]$lag
 
 #a ciklust am elrontotam sorry
-while (i<=(cl_number)){
- while(j <= cl_length){
-  while(k <= cl_number){
-    ij_ccf[[j]]<-(ccf(wti[j-(j-10):j,i], wti[j-(j-10):j,k]))
-    k<-k+1
-  }
-  j <- j + 1
- i <- i + 1
+
+while (j<=(cl_length)){
+  while(i <= cl_number){
+    while(k <= cl_number){
+      test_ccf[[j]]<-(ccf(wti[lag:(j-lag),i], lag:(j-lag),k],cc_lag))
+      k<-i+1
+    }
+    j <- j + 1
+  i <- i + 1
+  k<-i+1
 }
 }
 
