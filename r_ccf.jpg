@@ -1,14 +1,22 @@
-##
-
-#értelmezésem szerint a feladat: 
-#miután valaki szépen betárolta az adatokat
-#kellene választani egy ablakhosszt, és akkor minden párosra (24*25/2), 
-#kiszedjük a megfelelő adatokat, 
-#és azokra az ablakot mozgatva végigszámolgatjuk a keresztkorrelációt, 
-#és annak az eredményeit egy újabb helyen tároljuk, majd ezeket plotoljuk a végén
-
 library("readxl")
 wti<-readxl::read_excel(paste(dirname(getActiveDocumentContext()$path), "/WTI2.xlsx", sep=""))
+
+#wti <- read_excel("WTI2.xlsx", col_types = c("date", "numeric", "numeric", "numeric")
+
+View(wti)
+typeof(wti$Date)
+wti$date <- as.Date(wti$Date)
+
+ccf(wti$CL1,wti$CL8,main="Cross correlation CL1 and CL8")
+
+
+#paraméterek bekérésére:
+windowsize <- readline(prompt="Windowsize:");
+numberoflegs <- readline(prompt="Number of legs:");
+commodity1 <- readline(prompt="First commodity:");
+commodity2 <- readline(prompt="Second commodity:"); #itt lehet inkább vmi listát kéne egyben bekérni
+startdate <- readline(prompt="Start date:");
+enddate <- readline(prompt="End date:");
 
 #sima korrelacio, ez nem is kell
 correl=cor(wti[sapply( wti, is.numeric)])
