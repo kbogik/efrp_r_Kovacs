@@ -39,6 +39,13 @@ while(j <= cl_length){
   j <- j + 1
 }
 
+b<-unlist(cl_ccf, use.names=FALSE)
+
+#adott ablakhoz tartozó acf-ek minden lag-re
+#rakhatunk még ciklust, vagy mátrixba is tölthetjük, de kiszedhető korrekten
+cc_result[[j]]<-cl_ccf[[j]]$acf
+cc_lag[[j]]<-cl_ccf[[j]]$lag
+
 #a ciklust am elrontotam sorry
 while (i<=(cl_number)){
  while(j <= cl_length){
