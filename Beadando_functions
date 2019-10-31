@@ -1,3 +1,9 @@
+CrossCorrInput <- function(AssetList,StarDate,EndDate,WindowLength,LagLength){
+  variables <- list(AssetList,StarDate,EndDate,WindowLength,LagLength)
+  return(variables)
+  }
+  
+  ##############################
 TSDiff <- function(df){
   colnumbers <- ncol(df)
   rownumbers <- nrow(df)
