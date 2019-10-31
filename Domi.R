@@ -51,6 +51,10 @@ eredmeny <- matrix(1,nrow = rownumbers-lwindow-llag,ncol = 9)
 for (asset1 in 2:colnumbers) {
   for (asset2 in 2:colnumbers){
     k=k+1
+   #elnevezzük az oszlopokat
+    newelem <-paste0("(",parameters[asset1],",",parameters[asset2],")")
+    colnames <- c(colnames,newelem)
+   #majd feltöltjük a korreláció ereményeivel
     for (runwindow in 1:(rownumbers-lwindow-llag)){
       eredmeny[runwindow,k]=cor(usedata[runwindow:(lwindow+runwindow),asset1],usedata[(runwindow+llag):(lwindow+runwindow+llag),asset2])
     }
