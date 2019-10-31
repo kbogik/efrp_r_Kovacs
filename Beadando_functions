@@ -56,7 +56,7 @@ CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
         
         #majd feltöltjük a korreláció ereményeivel
         
-        for (runwindow in 1:(rownumbers-lwindow-llag)){
+        for (runwindow in 1:(rownumbers-lengthwindow-lengthlag)){
           
           eredmeny[runwindow,k]=cor(RawData[runwindow:(lengthwindow+runwindow),asset1],RawData[(runwindow+lengthlag):(lengthwindow+runwindow+lengthlag),asset2])
         }
