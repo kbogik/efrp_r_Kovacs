@@ -74,7 +74,7 @@ CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
 
 ##############################
 gg <- function(dates, timeseries){
-+   ggplot(grafikon,aes(dates,timeseries)) +
++   ggplot(Results,aes(dates,timeseries)) +
 +     geom_line()
 +   labs(
 +     y="ACF",
