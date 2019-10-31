@@ -16,6 +16,10 @@ usedata <- TSDiff(RawData)
 
 Results<-CrossCorrAnalysis(usedata,AnalysisInputs[[5]],AnalysisInputs[[4]])
 
+Results <- Results %>%
+            tidyr::as_tibble() %>%
+            dplyr::mutate(Date=as.Date(Date,origin="1970-01-01"))
+
 
 
 parameters2 <- c(colnames)
