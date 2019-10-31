@@ -3,7 +3,18 @@ CrossCorrInput <- function(AssetList,StarDate,EndDate,WindowLength,LagLength){
   return(variables)
   }
   
-  ##############################
+ ##############################
+  
+  PrepareDatabase <- function(df,StartDate,EndDate,SelectColumns){
+    x <- as.Date(StartDate)
+    y <- as.Date(EndDate)
+     RawData <- df[df$Date >= x & df$Date <= y,] %>%
+                dplyr::as_tibble() %>%
+                dplyr::select(SelectColumns)
+    return(RawData)
+    
+ ##############################
+
 TSDiff <- function(df){
   colnumbers <- ncol(df)
   rownumbers <- nrow(df)
