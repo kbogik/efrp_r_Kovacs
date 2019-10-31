@@ -1,9 +1,9 @@
 library("readxl")
+library("rstudioapi")
 library("tidyr")
 library(ggplot2)
 
- %>%
-
+#a matlabos órán használt WTI2.xlsx-et használtuk, beolvasashoz abba a mappába rakd a fájlt, ahol a scripted van
 wti<-readxl::read_excel(paste(dirname(getActiveDocumentContext()$path), "/WTI2.xlsx", sep=""))
 #wti <- read_excel("WTI2.xlsx", col_types = c("date", "numeric", "numeric", "numeric")
 
@@ -23,7 +23,10 @@ enddate <- readline(prompt="End date:");
 parameters <- c("Date","CL1", "CL2","CL3","CL4","CL5","CL6","CL7","CL8","CL9","CL10","CL11","CL12","CL13","CL14","CL15","CL16","CL17","CL18","CL19","CL20","CL21","CL22","CL23","CL24")
 usedata<- wti %>%
             tidyr::as_tibble() %>%
-            dplyr::select(parameters)
+            dplyr::select(parameters)%>%
+ intervallum <- c(as.date(2010-01-01),as.date(2016-12-31)%>% 
+ dplyr::filter("Date">intervallum[1] & "Date"<intervallum[2])
+
 
 colnumbers <- ncol(usedata)
 rownumbers <- nrow(usedata)
