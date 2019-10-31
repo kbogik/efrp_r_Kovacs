@@ -33,6 +33,18 @@ llag <- 30
 runwindow <- 0
 k=0
 
+#a nem stacionaritas miatt differenciazzuk
+for (asset3 in 2:rownumbers-1){
+  for (asset4 in 3:colnumbers-1){
+    usedata[[asset3,asset4]]<-wti[[asset3+1,asset4]]-wti[[asset3,asset4]]
+  }
+}
+
+#a differenciazas miatt az utolso sort torolhetjuk
+usedata<- usedata[-rownumbers,]
+rownumbers <- nrow(usedata)
+
+
 eredmeny <- matrix(1,nrow = rownumbers-lwindow-llag,ncol = 9)
   
 for (asset1 in 2:colnumbers) {
