@@ -11,7 +11,9 @@ CrossCorrInput <- function(AssetList,StarDate,EndDate,WindowLength,LagLength){
      RawData <- df[df$Date >= x & df$Date <= y,] %>%
                 dplyr::as_tibble() %>%
                 dplyr::select(SelectColumns)
-    return(RawData)
+ 
+  RawData<- subset(RawData,(weekdays(RawData$Date) %in% c('Monday','Tuesday', 'Wednesday', 'Thursday','Friday' ))) 
+  return(RawData)}
     
  ##############################
 
