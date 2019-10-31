@@ -71,3 +71,14 @@ CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
   colnames(eredmeny)=colnames    
    return(eredmeny)
 }
+
+##############################
+gg <- function(dates, timeseries){
++   ggplot(grafikon,aes(dates,timeseries)) +
++     geom_line()
++   labs(
++     y="ACF",
++     x="Idő",
++     title="Keresztkgzliorreláció",
++     caption = "Source: wti")
++ plot(gg)
