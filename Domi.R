@@ -1,5 +1,6 @@
 library("readxl")
 library("tidyr")
+library(ggplot2)
 
  %>%
 
@@ -55,3 +56,14 @@ for (asset1 in 2:colnumbers) {
     }
   }
 }
+
+#ez még csak a differencia ábrázolása
+gg <- ggplot(usedata, aes(usedata$Date, usedata$CL1)) + 
+geom_line()+
+  labs(
+    y="ACF", 
+    x="Idő", 
+    title="Keresztkorreláció", 
+    caption = "Source: wti")
+
+plot(gg)
