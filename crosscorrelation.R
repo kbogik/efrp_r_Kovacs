@@ -14,19 +14,24 @@ wti<-readxl::read_excel(paste(dirname(getActiveDocumentContext()$path), "/WTI2.x
 
 parameters <- c("Date","CL1", "CL2","CL3","CL4","CL5","CL6","CL7","CL8","CL9","CL10","CL11","CL12","CL13","CL14","CL15","CL16","CL17","CL18","CL19","CL20","CL21","CL22","CL23","CL24")
 
+
+
 wti$Date = as.Date(wti$Date, format="%m/%d %M:%S")
+
 intervallum <- function(x,y){wti[wti$Date >= x & wti$Date <= y,] %>%
           dplyr::as_tibble() %>%
-          dplyr::select(parameters)
+          dplyr::select(parameters) 
 
   }
-                
+    
 
 DATE1 <- as.Date("2011-04-29")
 DATE2 <- as.Date("2012-05-04")
 
 usedata <- intervallum(DATE1,DATE2) 
           
+usedata<- subset(usedata,(weekdays(usedata$Date) %in% c('Monday','Tuesday', 'Wednesday', 'Thursday','Friday' )))            
+
 
 #usedata<- wti %>%
             #dpylr::as_tibble() %>%
@@ -37,6 +42,7 @@ usedata <- intervallum(DATE1,DATE2)
 
 colnumbers <- ncol(usedata)
 rownumbers <- nrow(usedata)
+
 lwindow <- 130
 llag <- 30
 runwindow <- 0
@@ -93,3 +99,4 @@ geom_line()+
     caption = "Source: wti")
 
 plot(gg)
+
