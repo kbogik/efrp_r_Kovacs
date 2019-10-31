@@ -67,8 +67,16 @@ for (asset1 in 2:colnumbers) {
     }
   }
 }
+#elneveztük a ciklusban kapott nevekre az oszlopokat
+colnames(eredmeny)=colnames
 
-#ez még csak a differencia ábrázolása
+parameters2 <- c(colnames)
+grafikon<- eredmeny %>%
+  tidyr::as_tibble() %>%
+  dplyr::select(parameters2)
+ 
+#ha random kivalasztotok egy pl.:grafikon$`(CL1,CL5)` ilyet azt kellene ábrázolni valószínűleg
+#ez még csak a differencia ábrázolása, ezt írjuk át!
 gg <- ggplot(usedata, aes(usedata$Date, usedata$CL1)) + 
 geom_line()+
   labs(
