@@ -44,11 +44,11 @@ usedata<- usedata[-rownumbers,]
 rownumbers <- nrow(usedata)
 
 
-eredmeny <- matrix(1,nrow = rownumbers-lwindow-llag,ncol = 9)
+
+ eredmeny <- matrix(1,nrow = rownumbers-lwindow-llag,ncol = (length(parameters)-1)^2-(length(parameters)-1))
   
 for (asset1 in 2:colnumbers) {
   for (asset2 in 2:colnumbers){
-    k=k+1
     if (asset1!=asset2){
      
      #elnevezzük az oszlopokat
@@ -57,6 +57,7 @@ for (asset1 in 2:colnumbers) {
 
       #majd feltöltjük a korreláció ereményeivel
      for (runwindow in 1:(rownumbers-lwindow-llag)){
+       k=k+1
        eredmeny[runwindow,k]=cor(usedata[runwindow:(lwindow+runwindow),asset1],usedata[(runwindow+llag):(lwindow+runwindow+llag),asset2])
      }
     }
