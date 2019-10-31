@@ -2,7 +2,7 @@ library("readxl")
 library("rstudioapi")
 library("tidyr")
 library(ggplot2)
-library(dplyr
+library(dplyr)
 
 
 wti<-readxl::read_excel(paste(dirname(getActiveDocumentContext()$path), "/WTI2.xlsx", sep=""))
