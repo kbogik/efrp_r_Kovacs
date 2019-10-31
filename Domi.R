@@ -7,11 +7,9 @@ library(ggplot2)
 wti<-readxl::read_excel(paste(dirname(getActiveDocumentContext()$path), "/WTI2.xlsx", sep=""))
 #wti <- read_excel("WTI2.xlsx", col_types = c("date", "numeric", "numeric", "numeric")
 
-View(wti)
+#View(wti)
 typeof(wti$Date)
 wti$date <- as.Date(wti$Date)
-
-ccf(wti$CL1,wti$CL8,main="Cross correlation CL1 and CL8")
 
 #paraméterek bekérésére:
 windowsize <- readline(prompt="Windowsize:");
@@ -22,7 +20,7 @@ startdate <- readline(prompt="Start date:");
 enddate <- readline(prompt="End date:");
 
 
-parameters <- c("Date","CL1", "CL2","CL3")
+parameters <- c("Date","CL1", "CL2","CL3","CL4","CL5","CL6","CL7","CL8","CL9","CL10","CL11","CL12","CL13","CL14","CL15","CL16","CL17","CL18","CL19","CL20","CL21","CL22","CL23","CL24")
 usedata<- wti %>%
             tidyr::as_tibble() %>%
             dplyr::select(parameters)
@@ -51,12 +49,16 @@ eredmeny <- matrix(1,nrow = rownumbers-lwindow-llag,ncol = 9)
 for (asset1 in 2:colnumbers) {
   for (asset2 in 2:colnumbers){
     k=k+1
-   #elnevezzük az oszlopokat
-    newelem <-paste0("(",parameters[asset1],",",parameters[asset2],")")
-    colnames <- c(colnames,newelem)
-   #majd feltöltjük a korreláció ereményeivel
-    for (runwindow in 1:(rownumbers-lwindow-llag)){
-      eredmeny[runwindow,k]=cor(usedata[runwindow:(lwindow+runwindow),asset1],usedata[(runwindow+llag):(lwindow+runwindow+llag),asset2])
+    if (asset1!=asset2){
+     
+     #elnevezzük az oszlopokat
+     newelem <-paste0("(",parameters[asset1],",",parameters[asset2],")")
+     colnames <- c(colnames,newelem)
+
+      #majd feltöltjük a korreláció ereményeivel
+     for (runwindow in 1:(rownumbers-lwindow-llag)){
+       eredmeny[runwindow,k]=cor(usedata[runwindow:(lwindow+runwindow),asset1],usedata[(runwindow+llag):(lwindow+runwindow+llag),asset2])
+     }
     }
   }
 }
