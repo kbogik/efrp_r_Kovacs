@@ -1,0 +1,28 @@
+wti<-readxl::read_excel(paste(dirname(getActiveDocumentContext()$path), "/WTI2.xlsx", sep=""))
+wti$Date = as.Date(wti$Date, format="%m/%d %M:%S")
+
+AnalysisInputs <- CrossCorrInput(c("Date","CL1", "CL2","CL3","CL4","CL5","CL6","CL7","CL8","CL9","CL10","CL11","CL12","CL13","CL14","CL15","CL16","CL17","CL18","CL19","CL20","CL21","CL22","CL23","CL24"),"2011-04-29","2012-05-04",130,30)
+
+RawData <- PrepareDatabase(wti,AnalysisInputs[[2]],AnalysisInputs[[3]],AnalysisInputs[[1]])
+
+usedata <- TSDiff(RawData)
+
+Results<-CrossCorrAnalysis(usedata,AnalysisInputs[[5]],AnalysisInputs[[4]])
+
+
+
+parameters2 <- c(colnames)
+grafikon<- eredmeny %>%
+  tidyr::as_tibble() %>%
+  dplyr::select(parameters2)
+
+#ha random kivalasztotok egy pl.:grafikon$`(CL1,CL5)` ilyet azt kellene ábrázolni valószínűleg
+#ez még csak a differencia ábrázolása, ezt írjuk át!
+gg <- ggplot(usedata, aes(usedata$Date, usedata$CL1)) +
+  geom_line()+
+  labs(
+    y="ACF",
+    x="Idő",
+    title="Keresztkorreláció",
+    caption = "Source: wti")
+plot(gg)
