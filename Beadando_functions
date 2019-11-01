@@ -74,11 +74,12 @@ CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
 
 ##############################
 gg <- function(dates, timeseries){
-+   ggplot(Results,aes(dates,timeseries)) +
-+     geom_line()
-+   labs(
-+     y="ACF",
-+     x="Idő",
-+     title="Keresztkgzliorreláció",
-+     caption = "Source: wti")
-+ plot(gg)
+    g<-ggplot(Results,aes(dates,timeseries)) +
+      geom_line()
+     labs(
+         y="korreláció",
+        x="Idő",
+         title="Keresztkorreláció",
+         caption = "Source: wti")
+  plot(g)
+}
