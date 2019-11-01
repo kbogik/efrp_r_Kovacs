@@ -21,19 +21,5 @@ Results <- Results %>%
             dplyr::mutate(Date=as.Date(Date,origin="1970-01-01"))
 
 
-
-parameters2 <- c(colnames)
-grafikon<- eredmeny %>%
-  tidyr::as_tibble() %>%
-  dplyr::select(parameters2)
-
-#ha random kivalasztotok egy pl.:grafikon$`(CL1,CL5)` ilyet azt kellene ábrázolni valószínűleg
-#ez még csak a differencia ábrázolása, ezt írjuk át!
-gg <- ggplot(usedata, aes(usedata$Date, usedata$CL1)) +
-  geom_line()+
-  labs(
-    y="ACF",
-    x="Idő",
-    title="Keresztkorreláció",
-    caption = "Source: wti")
-plot(gg)
+#ha random kivalasztotok egy pl.:grafikon$`(CL1,CL2)`
+gg(Results$Date,Results$`(CL1,CL2)`)
