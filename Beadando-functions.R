@@ -37,13 +37,13 @@ TSDiff <- function(df){
 CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
   colnumbers <- ncol(RawData)
   rownumbers <- nrow(RawData)
-  colnames <- c()
+  colnames_tray <- c()
   runwindow=0
   k=1
   
   eredmeny <- data.frame(1,nrow = rownumbers-lengthwindow-lengthlag,ncol = ((colnumbers-1)*(colnumbers-2))+1)
   newelem <- "Date"
-  colnames <- c(colnames,newelem)
+  colnames_tray <- c(colnames_tray,newelem)
   
   for (asset1 in 2:colnumbers) {
     for (asset2 in 2:colnumbers){
@@ -54,7 +54,7 @@ CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
         #elnevezzük az oszlopokat
         
         newelem <-paste0("(",colnames(RawData)[asset1],",",colnames(RawData)[asset2],")")
-        colnames <- c(colnames,newelem)
+        colnames_tray <- c(colnames_tray,newelem)
         
         #majd feltöltjük a korreláció ereményeivel
         
@@ -68,18 +68,19 @@ CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
   }
   #elneveztük a ciklusban kapott nevekre az oszlopokat
   
-  colnames(eredmeny)=colnames    
+  colnames(eredmeny)=colnames_tray    
   return(eredmeny)
 }
 
 ##############################
+library(scales)
 gg <- function(dates, timeseries){
   g<-ggplot(Results,aes(dates,timeseries)) +
-    geom_line()
+    geom_line() + scale_x_date(labels = date_format("%m-%Y")) +  ggtitle("Keresztkorreláció")
   labs(
     y="korreláció",
     x="Idő",
-    title="Keresztkorreláció",
     caption = "Source: wti")
   plot(g)
 }
+
