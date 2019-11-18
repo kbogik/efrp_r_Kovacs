@@ -1,11 +1,12 @@
 #Mielőtt az itteni sorok futtatásra kerülnek, a Beadandó_functions fileból le kell futtatni az ottani függvényeket, hiszen azok kerülnek itt felhasználásra
 #A vizsgálat input paramétereit a 16.Sorban adhatjuk meg a CrossCorrInput argumentumaiként
 
-library("readxl")
-library("rstudioapi")
-library("tidyr")
+library(readxl)
+library(rstudioapi)
+library(tidyr)
 library(ggplot2)
 library(dplyr)
+library(tidyverse)
 
 #A WTI árfolyamokat tartalmazó excell betöltése
 wti<-readxl::read_excel(paste(dirname(getActiveDocumentContext()$path), "/WTI2.xlsx", sep=""))
@@ -26,10 +27,9 @@ Results<-CrossCorrAnalysis(usedata,AnalysisInputs[[5]],AnalysisInputs[[4]])
 
 #A Results data.frame dátum oszlopa numerikus alakból dátum formátumba írása
 Results <- Results %>%
-  tidyr::as_tibble() %>%
-  dplyr::mutate(Date=as.Date(Date,origin="1970-01-01"))
+  as_tibble() %>%
+  mutate(Date=as.Date(Date,origin="1970-01-01"))
 
 
 #ha random kivalasztotok egy pl.:grafikon$`(CL1,CL2)`
 gg(Results$Date,Results$`(CL1,CL2)`)
-
