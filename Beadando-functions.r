@@ -102,16 +102,24 @@ withOnes <- cbind(withOnes, Results[((24-1)*23+2):((24-1)*23+24)])
 withOnes <- cbind(withOnes, rep(1, 105))
 
 
+statCorMat <- matrix(withOnes[1,][-1], nrow=24, ncol=24)
+
+statCorMat <- (data.frame(statCorMat))
+
+for (i in 1:24){
+  for (j in 1:i){
+    
+  }
+}
 
 
 
+###############################
+#innentől nem működik
 
-corMatrix <- matrix(slice(Results, 1)[-1],nrow=23)
+library(qgraph)
 
 
-corMat <- cor(wti$CL1, lag(wti$CL2,30), use="na.or.complete")
-
-
-Graph_lasso <- qgraph(corMat, graph = "glasso", layout = "spring", tuning = 0.25,
-                      sampleSize = nrow(corMat))
+Graph_lasso <- qgraph(statCorMat, graph = "glasso", layout = "spring", tuning = 0.25,
+                      sampleSize = nrow(statCorMat))
 
