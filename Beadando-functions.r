@@ -63,7 +63,7 @@ CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
           eredmeny[runwindow,1]=RawData[runwindow,1]
           eredmeny[runwindow,k]=cor(RawData[runwindow:(lengthwindow+runwindow),asset1],RawData[(runwindow+lengthlag):(lengthwindow+runwindow+lengthlag),asset2])
         }
-      }
+      } 
     }
   }
   #elneveztük a ciklusban kapott nevekre az oszlopokat
@@ -86,7 +86,25 @@ gg <- function(dates, timeseries){
 
 ##############################
 
+#mivel maceras lenne a kesz dinamikus korrelacio tablankat visszaalakitani korrelacios matrix formaba, 
 #ez egyelore nem jo
+
+
+
+#csupa 1-es oszlopok beszurasa
+withOnes <- data.frame(Results[1])
+for(i in 1:23){
+  if (((i-1)*23+2)!=((i-1)*23+2+i-1)) withOnes <- cbind(withOnes, Results[((i-1)*23+2):((i-1)*23+2+(i-2))])
+  withOnes <- cbind(withOnes, rep(1, 105))
+  if (((i-1)*23+2+(i-1))!=((i-2)*23+24)) withOnes <- cbind(withOnes, Results[((i-1)*23+2+(i-1)):((i-1)*23+24)])
+}
+withOnes <- cbind(withOnes, Results[((24-1)*23+2):((24-1)*23+24)])
+withOnes <- cbind(withOnes, rep(1, 105))
+
+
+
+
+
 
 corMatrix <- matrix(slice(Results, 1)[-1],nrow=23)
 
