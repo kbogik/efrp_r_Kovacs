@@ -25,6 +25,9 @@ usedata <- TSDiff(RawData)
 #A dinamikus keresztkorreláció kiszámítása majd eltárolása egy data.frame-ba, melynek az oszlopyai (Date, (CL1,CL2), (CL1,CL3)...)
 Results<-CrossCorrAnalysis(usedata,AnalysisInputs[[5]],AnalysisInputs[[4]])
 
+#Kiszámoljuk a minimumot, a maximumot, és az átlagot
+MinMaxAvg(Results)
+
 #A Results data.frame dátum oszlopa numerikus alakból dátum formátumba írása
 Results <- Results %>%
   as_tibble() %>%
