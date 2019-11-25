@@ -71,7 +71,19 @@ CrossCorrAnalysis <- function(RawData,lengthlag,lengthwindow){
   colnames(eredmeny)=colnames_tray    
   return(eredmeny)
 }
-
+##############################
+MinMaxAvg <- function(Results){
+  minresults<-c()
+  maxresults<-c()
+  avgresults<-c()
+  for (asset in 1: nrow(Results)) {
+    minresults<-c(minresults,min(Results[asset,2:ncol(Results)]))
+    maxresults<-c(maxresults,max(Results[asset,2:ncol(Results)]))
+    avgresults <-c(avgresults,sum(Results[asset,2:ncol(Results)])/(ncol(Results)-1))
+  }
+  m<-data.frame("min"=minresults,"max"=maxresults,"avg"=avgresults)
+  return(m)
+}
 ##############################
 library(scales)
 gg <- function(dates, timeseries){
