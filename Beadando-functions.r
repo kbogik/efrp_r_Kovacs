@@ -85,7 +85,20 @@ gg <- function(dates, timeseries){
 }
 
 ##############################
+#ez nem jo
 
+MinMaxAvg <- function(Results){
+    minresults<-c(nrow(Results)-1)
+    maxresults<-c(nrow(Results)-1)
+    avgresults<-c(nrow(Results)-1)
+  for (asset in 1: nrow(Results)) {
+    minresults[asset]<-c(minresults,min(Results[asset,2:10]))
+   maxresults[asset]<-c(maxresults, max(Results[asset,2:10]))
+   avgresults[asset] <-c(avgresults,avg(Results[asset,2:10]))
+    }
+  
+}
+##############################
 #mivel maceras lenne a kesz dinamikus korrelacio tablankat visszaalakitani korrelacios matrix formaba, 
 #ez egyelore nem jo
 
@@ -106,20 +119,8 @@ statCorMat <- matrix(withOnes[1,][-1], nrow=24, ncol=24)
 
 statCorMat <- (data.frame(statCorMat))
 
-for (i in 1:24){
-  for (j in 1:i){
-    
-  }
-}
 
-
-
-###############################
-#innentől nem működik
-
-library(qgraph)
-
-
-Graph_lasso <- qgraph(statCorMat, graph = "glasso", layout = "spring", tuning = 0.25,
-                      sampleSize = nrow(statCorMat))
+Graph_lasso <- qgraph(corMat, graph = "glasso", layout = "spring", tuning = 0.25,
+                      sampleSize = nrow(corMat))
+plot(statCorMat)
 
