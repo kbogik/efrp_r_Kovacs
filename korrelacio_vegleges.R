@@ -68,3 +68,5 @@ for (i in 2:24){
 
 corrplot(data.matrix(statCorMat2))
 
+#elmentjuk a korrelációs mátrixot, hogy az rmarkdownba használhassuk
+save(statCorMat2,file="statCorMat.Rdata")
