@@ -33,3 +33,35 @@ Results <- Results %>%
 
 #ha random kivalasztotok egy pl.:grafikon$`(CL1,CL2)`
 gg(Results$Date,Results$`(CL1,CL2)`)
+
+
+##############################
+
+
+
+#csupa 1-es oszlopok beszurasa
+withOnes <- data.frame(Results[1])
+for(i in 1:23){
+  if (((i-1)*23+2)!=((i-1)*23+2+i-1)) withOnes <- cbind(withOnes, Results[((i-1)*23+2):((i-1)*23+2+(i-2))])
+  withOnes <- cbind(withOnes, rep(1, 105))
+  if (((i-1)*23+2+(i-1))!=((i-2)*23+24)) withOnes <- cbind(withOnes, Results[((i-1)*23+2+(i-1)):((i-1)*23+24)])
+}
+withOnes <- cbind(withOnes, Results[((24-1)*23+2):((24-1)*23+24)])
+withOnes <- cbind(withOnes, rep(1, 105))
+
+
+statCorMat <- matrix(withOnes[1,][-1], nrow=24, ncol=24)
+
+statCorMat <- (data.frame(statCorMat))
+
+statCorMat2 <- data.matrix(statCorMat)
+
+for (i in 2:24){
+  for (j in 1:(i-1)){
+    statCorMat2[i,j] <- statCorMat2[j,i]
+  }
+}
+
+
+corrplot(data.matrix(statCorMat2))
+
